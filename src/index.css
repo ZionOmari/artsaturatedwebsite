@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global Grayscale Effect Classes */
+.grayscale-effect {
+  filter: grayscale(100%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.grayscale-effect:hover {
+  filter: grayscale(0%);
+}
+
+.grayscale-partial {
+  filter: grayscale(50%);
+  transition: filter 0.3s ease-in-out;
+}
+
+.grayscale-partial:hover {
+  filter: grayscale(0%);
+}
+
+/* Animation for grayscale fade */
+.grayscale-fade-in {
+  animation: grayscaleFadeIn 2s ease-in-out;
+}
+
+@keyframes grayscaleFadeIn {
+  0% {
+    filter: grayscale(0%);
+    opacity: 0;
+  }
+  50% {
+    filter: grayscale(100%);
+    opacity: 0.5;
+  }
+  100% {
+    filter: grayscale(100%);
+    opacity: 1;
+  }
+}
+
+/* Custom grayscale states */
+.grayscale-toggle {
+  transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.grayscale-active {
+  filter: grayscale(100%) contrast(1.1) brightness(0.9);
+}
+
+.grayscale-inactive {
+  filter: grayscale(0%) contrast(1) brightness(1);
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
