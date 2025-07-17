@@ -2,13 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Art Saturated Website - Creative Portfolio with Grayscale Effects" />
-    <title>Art Saturated Website</title>
+    <meta name="description" content="Art Saturated - Experience art through innovative grayscale effects and vibrant colors. A modern portfolio showcasing artistic vision with interactive visual transformations." />
+    <meta name="keywords" content="art, portfolio, grayscale, visual effects, modern art, interactive design, creative showcase" />
+    <meta name="author" content="Art Saturated Team" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://artsaturated.com/" />
+    <meta property="og:title" content="Art Saturated - Interactive Art Portfolio" />
+    <meta property="og:description" content="Experience art through innovative grayscale effects and vibrant colors." />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://artsaturated.com/" />
+    <meta property="twitter:title" content="Art Saturated - Interactive Art Portfolio" />
+    <meta property="twitter:description" content="Experience art through innovative grayscale effects and vibrant colors." />
+    <meta property="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>Art Saturated - Interactive Art Portfolio</title>
+    
+    <!-- Prevent FOUC (Flash of Unstyled Content) -->
+    <style>
+      html { visibility: hidden; opacity: 0; }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    
+    <!-- Show content after loading -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        document.documentElement.style.visibility = 'visible';
+        document.documentElement.style.opacity = '1';
+      });
+    </script>
   </body>
 </html>

@@ -1,27 +1,88 @@
-import React, { useState } from 'react';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import Gallery from './components/Gallery';
-import About from './components/About';
-import Merch from './components/Merch';
-import Connect from './components/Connect';
+import React, { useEffect, useState } from 'react';
+import { VisualThemeProvider } from './context/VisualThemeContext';
+import { useCurrentSection } from './hooks/useScrollAnimation';
+import Navigation from './components/layout/Navigation';
+import Hero from './components/sections/Hero';
+import Gallery from './components/sections/Gallery';
+import About from './components/sections/About';
+import Merchandise from './components/sections/Merchandise';
+import Connect from './components/sections/Connect';
+import Footer from './components/layout/Footer';
+import ScrollToTop from './components/ui/ScrollToTop';
+import LoadingScreen from './components/ui/LoadingScreen';
+import './styles/index.css';
 
-function App() {
-  const [grayscaleMode, setGrayscaleMode] = useState(false);
+const SECTION_IDS = ['home', 'gallery', 'about', 'merchandise', 'connect'];
 
-  const toggleGrayscaleMode = () => {
-    setGrayscaleMode(!grayscaleMode);
-  };
+function AppContent() {
+  const [isLoading, setIsLoading] = useState(true);
+  const currentSection = useCurrentSection(SECTION_IDS);
+
+  useEffect(() => {
+    // Simulate app initialization
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Update document title based on current section
+    const sectionTitles: { [key: string]: string } = {
+      home: 'Art Saturated - Interactive Art Portfolio',
+      gallery: 'Gallery - Art Saturated',
+      about: 'About - Art Saturated',
+      merchandise: 'Merchandise - Art Saturated',
+      connect: 'Connect - Art Saturated',
+    };
+
+    if (currentSection && sectionTitles[currentSection]) {
+      document.title = sectionTitles[currentSection];
+    }
+  }, [currentSection]);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
-    <div className={`App ${grayscaleMode ? 'grayscale-active' : 'grayscale-inactive'} grayscale-toggle`}>
-      <Navigation onGrayscaleToggle={toggleGrayscaleMode} grayscaleMode={grayscaleMode} />
-      <Hero grayscaleMode={grayscaleMode} />
-      <Gallery grayscaleMode={grayscaleMode} />
-      <About grayscaleMode={grayscaleMode} />
-      <Merch grayscaleMode={grayscaleMode} />
-      <Connect grayscaleMode={grayscaleMode} />
+    <div className="min-h-screen bg-white">
+      {/* Navigation */}
+      <Navigation currentSection={currentSection} />
+
+      {/* Main Content */}
+      <main className="relative">
+        {/* Hero Section */}
+        <Hero />
+
+        {/* Gallery Section */}
+        <Gallery />
+
+        {/* About Section */}
+        <About />
+
+        {/* Merchandise Section */}
+        <Merchandise />
+
+        {/* Connect Section */}
+        <Connect />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
+  );
+}
+
+function App() {
+  return (
+    <VisualThemeProvider autoSave={true}>
+      <AppContent />
+    </VisualThemeProvider>
   );
 }
 
