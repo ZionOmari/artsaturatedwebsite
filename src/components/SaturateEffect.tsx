@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useCallback, useState } from 'react';
 
 interface SaturateEffectProps {
   isActive: boolean;
+  onScreenClearChange?: (isClear: boolean) => void;
+  shouldReset?: boolean;
 }
 
 interface TrailPoint {
@@ -10,7 +12,7 @@ interface TrailPoint {
   timestamp: number;
 }
 
-const SaturateEffect: React.FC<SaturateEffectProps> = ({ isActive }) => {
+const SaturateEffect: React.FC<SaturateEffectProps> = ({ isActive, onScreenClearChange, shouldReset }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const clearedCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -218,6 +220,24 @@ const SaturateEffect: React.FC<SaturateEffectProps> = ({ isActive }) => {
     
     // No cleanup - trail points persist forever
 
+    // Check if screen is clear enough and notify parent
+    if (onScreenClearChange && clearedCanvas) {
+      const imageData = clearedCtx.getImageData(0, 0, clearedCanvas.width, clearedCanvas.height);
+      const totalPixels = imageData.width * imageData.height;
+      let clearedPixels = 0;
+      
+      for (let i = 0; i < imageData.data.length; i += 4) {
+        const alpha = imageData.data[i + 3];
+        if (alpha > 50) { // Consider pixel cleared if alpha > 50
+          clearedPixels++;
+        }
+      }
+      
+      const clearPercentage = clearedPixels / totalPixels;
+      const isScreenClear = clearPercentage > 0.7; // 70% of screen cleared
+      onScreenClearChange(isScreenClear);
+    }
+
     // Fade the cleared canvas
     clearedCtx.save();
     clearedCtx.globalCompositeOperation = 'source-atop';
@@ -326,8 +346,29 @@ const SaturateEffect: React.FC<SaturateEffectProps> = ({ isActive }) => {
           clearedCtx.clearRect(0, 0, clearedCanvasRef.current.width, clearedCanvasRef.current.height);
         }
       }
+      // Reset screen clear state when deactivated
+      if (onScreenClearChange) {
+        onScreenClearChange(false);
+      }
     }
-  }, [isActive]);
+  }, [isActive, onScreenClearChange]);
+
+  // Handle shouldReset prop
+  useEffect(() => {
+    if (shouldReset && isActive) {
+      trailRef.current = [];
+      if (clearedCanvasRef.current) {
+        const clearedCtx = clearedCanvasRef.current.getContext('2d');
+        if (clearedCtx) {
+          clearedCtx.clearRect(0, 0, clearedCanvasRef.current.width, clearedCanvasRef.current.height);
+        }
+      }
+      // Reset screen clear state
+      if (onScreenClearChange) {
+        onScreenClearChange(false);
+      }
+    }
+  }, [shouldReset, isActive, onScreenClearChange]);
 
   if (!isActive) {
     return null;
