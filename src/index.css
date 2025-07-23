@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Gradient Animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Drip Animation */
+@keyframes drip {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+    height: 2px;
+  }
+  20% {
+    height: 8px;
+    opacity: 1;
+  }
+  40% {
+    height: 12px;
+    opacity: 1;
+  }
+  60% {
+    height: 16px;
+    opacity: 0.9;
+  }
+  80% {
+    height: 20px;
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(40px);
+    height: 24px;
+    opacity: 0;
+  }
+}
+
+
+
+/* Simplified button pulse - reduced intensity */
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+  }
+}
+
+/* Button pop effect */
+@keyframes buttonPop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Color explosion effect */
+@keyframes colorExplosion {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: translateY(20px) scale(1.5);
+    opacity: 0.8;
+  }
+  60% {
+    transform: translateY(100px) scale(2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(200px) scale(3);
+    opacity: 0;
+  }
+}
+
+/* CSS Reset with performance optimizations */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Performance optimizations */
+img {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px 200px;
+}
+
+/* GPU acceleration for smooth transforms */
+.group:hover *,
+[class*="transition-"] {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Performance optimizations for scrolling */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    margin: 0;
+    padding: 0;
+    /* Enhanced smooth scrolling */
+    scroll-padding-top: 80px;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: transparent;
+    color: #FFFFFF;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    /* Smooth scrolling enhancements */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: smooth;
+  }
+  
+  #root {
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    position: relative;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    background: linear-gradient(135deg, #3498DB, #5DADE2, #AF7AC5, #9B59B6, #8E44AD, #6C5CE7);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 12s ease infinite;
+  }
+  
+  .crayola-gradient {
+    /* Background removed - now handled by layer system */
+    /* Keeping class for any other styling that might be attached */
+  }
+  
+  .muted-gradient {
+    /* Background removed - now handled by layer system */
+    /* Keeping class for any other styling that might be attached */
+  }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Shimmer animation for saturate button */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
+}
+
+.backdrop-blur-md {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+} 
