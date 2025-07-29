@@ -8,10 +8,9 @@ import Connect from '../components/Connect';
 interface HomeProps {
   isSaturated: boolean;
   onSaturateToggle: () => void;
-  isScreenClear: boolean;
 }
 
-const Home: React.FC<HomeProps> = ({ isSaturated, onSaturateToggle, isScreenClear }) => {
+const Home: React.FC<HomeProps> = ({ isSaturated, onSaturateToggle }) => {
   const smoothScrollTo = (targetY: number, duration = 1000) => {
     const startY = window.pageYOffset;
     const difference = targetY - startY;
@@ -49,7 +48,6 @@ const Home: React.FC<HomeProps> = ({ isSaturated, onSaturateToggle, isScreenClea
       <Navigation 
         onSaturateToggle={onSaturateToggle} 
         isSaturated={isSaturated} 
-        isScreenClear={isScreenClear}
       />
       <main>
         <Hero isSaturated={isSaturated} />

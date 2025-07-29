@@ -24,37 +24,27 @@ const About = ({ isSaturated = false }: AboutProps) => {
   ]
 
   return (
-    <section id="about" className={`py-20 px-4 sm:px-6 lg:px-8 ${
-      isSaturated ? 'crayola-gradient' : 'muted-gradient'
-    }`}>
+    <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className={isSaturated ? "gradient-text" : "text-gray-300"}>From Movement</span>
+            <span className="text-white">From Movement</span>
             <br />
-            <span className={isSaturated ? "text-gray-900" : "text-gray-200"}>to Medium</span>
+            <span className="text-white">to Medium</span>
           </h2>
           
-          <p className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed ${
-            isSaturated ? "text-gray-700" : "text-gray-400"
-          }`}>
+          <p className="text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed text-white">
             I'm Zion Omari, a creative engineer who believes that art isn't just something you look at—it's something you feel, 
             something you move to, something that moves you.
           </p>
         </div>
 
         {/* Mission Statement */}
-        <div className={`p-8 md:p-12 rounded-2xl mb-16 text-center ${
-          'bg-transparent'
-        }`}>
-          <h3 className={`text-2xl md:text-3xl font-bold mb-6 ${
-            isSaturated ? "text-crayola-white" : "text-gray-200"
-          }`}>
+        <div className="p-8 md:p-12 rounded-2xl mb-16 text-center bg-white/10 border border-white/20">
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">
             The Manifesto
           </h3>
-          <p className={`text-lg md:text-xl leading-relaxed max-w-4xl mx-auto ${
-            isSaturated ? "text-crayola-white" : "text-gray-300"
-          }`}>
+          <p className="text-lg md:text-xl leading-relaxed max-w-4xl mx-auto text-white">
             "I create because I must. I move because I can. I share because I believe that art has the power to transform 
             not just the creator, but everyone who encounters it. Every piece I make is a conversation between movement 
             and medium, between sound and sight, between the artist and the audience. This is ArtSaturated—where passion 
@@ -68,25 +58,15 @@ const About = ({ isSaturated = false }: AboutProps) => {
           {features.map((feature, index) => (
             <div
               key={index}
-              className={`text-center p-6 rounded-xl backdrop-blur-sm border transition-all duration-300 ${
-                isSaturated 
-                                  ? 'bg-transparent border-crayola-gray/20 hover:border-crayola-yellow/50'
-                : 'bg-transparent border-gray-600/20 hover:border-gray-500/50'
-              }`}
+              className="text-center p-6 rounded-xl bg-white/10 border border-white/20 hover:border-white/40 transition-all duration-300"
             >
-              <div className={`mb-4 flex justify-center ${
-                isSaturated ? "text-crayola-yellow" : "text-gray-400"
-              }`}>
+              <div className="mb-4 flex justify-center text-white">
                 {feature.icon}
               </div>
-              <h3 className={`text-xl font-bold mb-4 ${
-                isSaturated ? "text-gray-900" : "text-gray-200"
-              }`}>
+              <h3 className="text-xl font-bold mb-4 text-white">
                 {feature.title}
               </h3>
-              <p className={`leading-relaxed ${
-                isSaturated ? "text-gray-700" : "text-gray-400"
-              }`}>
+              <p className="leading-relaxed text-white">
                 {feature.description}
               </p>
             </div>
@@ -95,14 +75,10 @@ const About = ({ isSaturated = false }: AboutProps) => {
 
         {/* Personal Story */}
         <div className="mt-16 text-center">
-          <h3 className={`text-2xl md:text-3xl font-bold mb-6 ${
-            isSaturated ? "text-gray-900" : "text-gray-200"
-          }`}>
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white">
             The Journey
           </h3>
-          <div className={`max-w-4xl mx-auto text-lg leading-relaxed space-y-4 ${
-            isSaturated ? "text-gray-700" : "text-gray-400"
-          }`}>
+          <div className="max-w-4xl mx-auto text-lg leading-relaxed space-y-4 text-white">
             <p>
               My path began with movement—dance was my first language, my first way of expressing what words couldn't capture. 
               But as I moved, I realized that every gesture, every rhythm, every emotion could be translated into other forms.

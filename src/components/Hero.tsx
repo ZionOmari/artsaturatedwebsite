@@ -18,36 +18,28 @@ const Hero = ({ isSaturated = false }: HeroProps) => {
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* Removed background - now handled by layers */}
+      {/* Background is now handled by App.tsx layers */}
 
       <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div>
           <h1 className="text-6xl md:text-8xl font-black mb-6">
-            <span className="gradient-text">Welcome to</span>
+            <span className="text-white">Welcome to</span>
             <br />
-            <span className="gradient-text">ArtSaturated</span>
+            <span className="text-white">ArtSaturated</span>
           </h1>
           
-          <h2 className={`text-2xl md:text-3xl font-light mb-8 ${
-            isSaturated ? "text-gray-700" : "text-gray-500"
-          }`}>
+          <h2 className="text-2xl md:text-3xl font-light mb-8 text-white">
             Zion Omari: Creative Engineer
           </h2>
 
-          <p className={`text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed ${
-            isSaturated ? "text-gray-600" : "text-gray-600"
-          }`}>
+          <p className="text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed text-white">
             Where movement meets medium, where sound becomes sight, 
             and where every creation tells a story of passion and purpose.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
-              className={`relative px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 overflow-visible border-2 ${
-                isSaturated 
-                  ? 'text-crayola-white border-crayola-white/30 bg-transparent hover:border-crayola-white/50' 
-                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border-gray-600'
-              }`}
+              className="relative px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 overflow-visible border-2 bg-white/20 text-white hover:bg-white/30 border-white/30"
               style={{
                 animation: 'none'
               }}
@@ -59,42 +51,6 @@ const Hero = ({ isSaturated = false }: HeroProps) => {
                 navigate('/shop');
               }}
             >
-              {/* Color Leak Drips - Behind button (reduced for performance) */}
-              {isSaturated && (
-                <>
-                  <div 
-                    className="absolute bottom-0 left-4 w-2 rounded-full opacity-90"
-                    style={{
-                      background: 'linear-gradient(to bottom, #FF6B6B, #FFA500)',
-                      animation: 'drip 8s ease-in-out infinite',
-                      animationDelay: '0s',
-                      transformOrigin: 'top',
-                      zIndex: -1
-                    }}
-                  />
-                  <div 
-                    className="absolute bottom-0 right-6 w-2 rounded-full opacity-85"
-                    style={{
-                      background: 'linear-gradient(to bottom, #FF69B4, #9B59B6)',
-                      animation: 'drip 8s ease-in-out infinite',
-                      animationDelay: '3s',
-                      transformOrigin: 'top',
-                      zIndex: -1
-                    }}
-                  />
-                  <div 
-                    className="absolute bottom-0 left-1/2 w-2.5 rounded-full opacity-80"
-                    style={{
-                      background: 'linear-gradient(to bottom, #FFD93D, #3498DB)',
-                      animation: 'drip 8s ease-in-out infinite',
-                      animationDelay: '6s',
-                      transformOrigin: 'top',
-                      zIndex: -1
-                    }}
-                  />
-                </>
-              )}
-              
               {/* Color explosion effects */}
               {isExploding && (
                 <>
@@ -155,11 +111,7 @@ const Hero = ({ isSaturated = false }: HeroProps) => {
             </button>
 
             <button
-              className={`border-2 px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 transition-all duration-300 ${
-                isSaturated 
-                  ? 'border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white' 
-                  : 'border-gray-600 text-gray-400 hover:bg-gray-600 hover:text-white'
-              }`}
+              className="border-2 px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 transition-all duration-300 border-white text-white hover:bg-white hover:text-gray-900"
               onClick={() => scrollToSection('gallery')}
             >
               <Image size={20} />
@@ -171,9 +123,7 @@ const Hero = ({ isSaturated = false }: HeroProps) => {
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <div
-            className={`cursor-pointer ${
-              isSaturated ? "text-gray-600" : "text-gray-500"
-            }`}
+            className="cursor-pointer text-white hover:text-gray-200 transition-colors"
             onClick={() => scrollToSection('about')}
           >
             <ArrowDown size={24} />
