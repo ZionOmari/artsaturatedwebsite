@@ -1,327 +1,279 @@
-import { ShoppingCart, Star, ExternalLink, FileText, Shirt } from 'lucide-react'
+import React, { useState } from 'react'
+import { Shirt, ShoppingCart, Star, Package, Image, Gift, Music } from 'lucide-react'
+import { useCart } from '../contexts/CartContext'
 
-interface MerchProps {
-  isSaturated?: boolean
-}
+const Merch = () => {
+  const [activeCategory, setActiveCategory] = useState('all')
+  const { addItem, getItemCount } = useCart()
 
-const Merch = ({ isSaturated = false }: MerchProps) => {
-  const artworkPrints = [
+  const categories = [
+    { id: 'all', label: 'All Products', icon: <Package size={20} /> },
+    { id: 'clothing', label: 'Clothing', icon: <Shirt size={20} /> },
+    { id: 'prints', label: 'Prints', icon: <Image size={20} /> },
+    { id: 'mystery', label: 'Mystery Merch', icon: <Gift size={20} /> },
+    { id: 'bundles', label: 'Record Bundles', icon: <Music size={20} /> }
+  ]
+
+  const products = [
+    // Clothing Section
     {
       id: 1,
-      name: "ArtSaturated Print #1",
-      price: "$5.00",
-      description: "High-quality art print on premium paper",
-      image: "/assets/images/SimpleScanStation20250422152626_2.jpg",
-      category: "Print",
-      size: "8.5\" x 11\""
+      name: "ArtSaturated T-Shirt",
+      description: "Premium cotton tee with signature logo design",
+      price: 25,
+      category: "clothing",
+      image: "/api/placeholder/300/300",
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      colors: ["Black", "Yellow", "White"]
     },
     {
       id: 2,
-      name: "ArtSaturated Print #2", 
-      price: "$5.00",
-      description: "High-quality art print on premium paper",
-      image: "/assets/images/SimpleScanStation20250422152626_3.jpg",
-      category: "Print",
-      size: "8.5\" x 11\""
+      name: "ArtSaturated Hoodie",
+      description: "Cozy pullover hoodie with embroidered artwork",
+      price: 55,
+      category: "clothing",
+      image: "/api/placeholder/300/300",
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      colors: ["Black", "Yellow", "Gray"]
     },
     {
       id: 3,
-      name: "ArtSaturated Print #3",
-      price: "$5.00", 
-      description: "High-quality art print on premium paper",
-      image: "/assets/images/SimpleScanStation20250422152626_4.jpg",
-      category: "Print",
-      size: "8.5\" x 11\""
+      name: "ArtSaturated Long Sleeve",
+      description: "Classic long sleeve with front and back designs",
+      price: 35,
+      category: "clothing",
+      image: "/api/placeholder/300/300",
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      colors: ["Black", "Yellow", "White"]
     },
     {
       id: 4,
-      name: "ArtSaturated Print #4",
-      price: "$5.00",
-      description: "High-quality art print on premium paper", 
-      image: "/assets/images/SimpleScanStation20250422152626_1.jpg",
-      category: "Print",
-      size: "8.5\" x 11\""
+      name: "ArtSaturated Sweatpants",
+      description: "Comfortable joggers with side stripe detail",
+      price: 45,
+      category: "clothing",
+      image: "/api/placeholder/300/300",
+      sizes: ["S", "M", "L", "XL", "XXL"],
+      colors: ["Black", "Yellow", "Gray"]
+    },
+    // Prints Section
+    {
+      id: 5,
+      name: "Abstract Motion Print",
+      description: "11x14 limited edition art print on premium paper",
+      price: 20,
+      category: "prints",
+      image: "/api/placeholder/300/300",
+      sizes: ["11x14", "16x20", "24x36"],
+      limited: true
+    },
+    {
+      id: 6,
+      name: "Color Explosion Series",
+      description: "Set of 3 matching prints showcasing vibrant energy",
+      price: 45,
+      category: "prints",
+      image: "/api/placeholder/300/300",
+      sizes: ["8x10", "11x14"],
+      limited: true
+    },
+    // Mystery Merch
+    {
+      id: 7,
+      name: "Mystery Box - Small",
+      description: "Surprise collection of stickers, pins, and small items",
+      price: 15,
+      category: "mystery",
+      image: "/api/placeholder/300/300",
+      mystery: true
+    },
+    {
+      id: 8,
+      name: "Mystery Box - Large",
+      description: "Premium mystery box with clothing item and surprises",
+      price: 35,
+      category: "mystery",
+      image: "/api/placeholder/300/300",
+      mystery: true
+    },
+    // Record Bundles
+    {
+      id: 9,
+      name: "Vinyl + Merch Bundle",
+      description: "Limited vinyl record with exclusive t-shirt",
+      price: 65,
+      category: "bundles",
+      image: "/api/placeholder/300/300",
+      bundle: true,
+      limited: true
+    },
+    {
+      id: 10,
+      name: "Complete Collection Bundle",
+      description: "Everything: vinyl, hoodie, prints, and mystery items",
+      price: 120,
+      category: "bundles",
+      image: "/api/placeholder/300/300",
+      bundle: true,
+      limited: true
     }
   ]
 
-  const hoodies = [
-    {
-      id: 1,
-      name: "ArtSaturated Hoodie - Black",
-      price: "$45.00",
-      description: "Premium cotton hoodie with your favorite ArtSaturated design",
-      image: "/assets/images/SimpleScanStation20250422152626_2.jpg",
-      category: "Hoodie",
-      color: "Black"
-    },
-    {
-      id: 2,
-      name: "ArtSaturated Hoodie - White", 
-      price: "$45.00",
-      description: "Premium cotton hoodie with your favorite ArtSaturated design",
-      image: "/assets/images/SimpleScanStation20250422152626_3.jpg",
-      category: "Hoodie",
-      color: "White"
-    },
-    {
-      id: 3,
-      name: "ArtSaturated Hoodie - Black",
-      price: "$45.00",
-      description: "Premium cotton hoodie with your favorite ArtSaturated design", 
-      image: "/assets/images/SimpleScanStation20250422152626_4.jpg",
-      category: "Hoodie",
-      color: "Black"
-    },
-    {
-      id: 4,
-      name: "ArtSaturated Hoodie - White",
-      price: "$45.00",
-      description: "Premium cotton hoodie with your favorite ArtSaturated design",
-      image: "/assets/images/SimpleScanStation20250422152626_5.jpg", 
-      category: "Hoodie",
-      color: "White"
-    }
-  ]
+  const filteredProducts = activeCategory === 'all' 
+    ? products 
+    : products.filter(product => product.category === activeCategory)
+
+  const handleAddToCart = (product: any) => {
+    addItem(product)
+  }
 
   return (
-    <section id="merch" className={`py-20 px-4 sm:px-6 lg:px-8 ${
-      isSaturated ? 'crayola-gradient' : 'muted-gradient'
-    }`}>
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            <span className={isSaturated ? "gradient-text" : "text-gray-300"}>Shop</span>
+    <section id="merch" className="py-20 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-5xl md:text-6xl font-black mb-6">
+            <span className="gradient-text">Shop</span>
             <br />
-            <span className={isSaturated ? "text-gray-900" : "text-gray-200"}>the Drop</span>
+            <span className="text-white">ArtSaturated</span>
           </h2>
-          
-          <p className={`text-xl md:text-2xl max-w-4xl mx-auto leading-relaxed mb-8 ${
-            isSaturated ? "text-gray-700" : "text-gray-400"
-          }`}>
-            Wear your passion. Every piece is a conversation starter, a statement of creativity, 
-            and a way to carry the ArtSaturated energy with you.
+          <p className="text-xl text-white/80 max-w-3xl mx-auto">
+            Premium merch designed for creators and dreamers
           </p>
-
-          <button
-            className={`px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 mx-auto shadow-lg hover:shadow-xl transition-all duration-300 ${
-              isSaturated 
-                ? 'text-crayola-white' 
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-            }`}
-            title="View full collection"
-          >
-            <ExternalLink size={20} />
-            Full Collection Coming Soon
-          </button>
         </div>
 
-        {/* Art Prints Section */}
-        <div className="mb-16">
-          <h3 className={`text-3xl font-bold mb-8 text-center flex items-center justify-center gap-3 ${
-            isSaturated ? "text-gray-900" : "text-gray-200"
-          }`}>
-            <FileText size={32} className={isSaturated ? "text-crayola-yellow" : "text-gray-400"} />
-            Art Prints - $5 Each
-          </h3>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {artworkPrints.map((item, index) => (
-              <div
-                key={item.id}
-                className="group cursor-pointer"
+        {/* Cart Summary */}
+        {getItemCount() > 0 && (
+          <div className="fixed top-20 right-4 z-40 bg-black/90 backdrop-blur-sm border border-yellow-400 rounded-lg p-4">
+            <div className="flex items-center space-x-2 text-yellow-400">
+              <ShoppingCart size={20} />
+              <span className="font-bold">{getItemCount()} items in cart</span>
+            </div>
+          </div>
+        )}
+
+        {/* Category Filter */}
+        <div className="mb-12">
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`flex items-center space-x-2 px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
+                  activeCategory === category.id
+                    ? 'bg-yellow-400 text-black'
+                    : 'bg-black/50 text-white border border-yellow-400/30 hover:border-yellow-400 hover:bg-yellow-400/10'
+                }`}
               >
-                <div className={`backdrop-blur-sm rounded-xl overflow-hidden border transition-all duration-300 ${
-                  isSaturated 
-                    ? 'bg-crayola-black/50 border-crayola-gray/20 hover:border-crayola-yellow/50' 
-                    : 'bg-gray-800/50 border-gray-600/20 hover:border-gray-500/50'
-                }`}>
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.name}
-                      className="w-full h-64 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold ${
-                      isSaturated 
-                        ? 'bg-crayola-yellow text-crayola-black' 
-                        : 'bg-gray-600 text-gray-200'
-                    }`}>
-                      {item.category}
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className={`text-lg font-bold transition-colors duration-300 ${
-                        isSaturated 
-                          ? "text-gray-900 group-hover:text-crayola-yellow" 
-                          : "text-gray-200 group-hover:text-gray-300"
-                      }`}>
-                        {item.name}
-                      </h3>
-                      <span className={`font-bold text-lg ${
-                        isSaturated ? "text-crayola-yellow" : "text-gray-400"
-                      }`}>
-                        {item.price}
-                      </span>
-                    </div>
-                    
-                    <p className={`text-sm mb-2 ${
-                      isSaturated ? "text-crayola-gray" : "text-gray-500"
-                    }`}>
-                      {item.description}
-                    </p>
-                    
-                    <p className={`text-xs mb-4 ${
-                      isSaturated ? "text-crayola-gray" : "text-gray-500"
-                    }`}>
-                      Size: {item.size}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            size={16} 
-                            className={`${
-                              isSaturated ? "text-crayola-yellow" : "text-gray-500"
-                            } fill-current`} 
-                          />
-                        ))}
-                      </div>
-                      <span className={`text-xs ${
-                        isSaturated ? "text-crayola-gray" : "text-gray-500"
-                      }`}>
-                        + Shipping
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                {category.icon}
+                <span>{category.label}</span>
+              </button>
             ))}
           </div>
         </div>
 
-        {/* Hoodies Section */}
-        <div className="mb-16">
-          <h3 className={`text-3xl font-bold mb-8 text-center flex items-center justify-center gap-3 ${
-            isSaturated ? "text-gray-900" : "text-gray-200"
-          }`}>
-            <Shirt size={32} className={isSaturated ? "text-crayola-yellow" : "text-gray-400"} />
-            Hoodies - $45 Each
-          </h3>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {hoodies.map((item, index) => (
-              <div
-                key={item.id}
-                className="group cursor-pointer"
-              >
-                <div className={`backdrop-blur-sm rounded-xl overflow-hidden border transition-all duration-300 ${
-                  isSaturated 
-                    ? 'bg-crayola-black/50 border-crayola-gray/20 hover:border-crayola-yellow/50' 
-                    : 'bg-gray-800/50 border-gray-600/20 hover:border-gray-500/50'
-                }`}>
-                  <div className="relative overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.name}
-                      className="w-full h-64 object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                    <div className={`absolute top-2 right-2 px-2 py-1 rounded-full text-xs font-bold ${
-                      isSaturated 
-                        ? 'bg-crayola-yellow text-crayola-black' 
-                        : 'bg-gray-600 text-gray-200'
-                    }`}>
-                      {item.category}
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className={`text-lg font-bold transition-colors duration-300 ${
-                        isSaturated 
-                          ? "text-gray-900 group-hover:text-crayola-yellow" 
-                          : "text-gray-200 group-hover:text-gray-300"
-                      }`}>
-                        {item.name}
-                      </h3>
-                      <span className={`font-bold text-lg ${
-                        isSaturated ? "text-crayola-yellow" : "text-gray-400"
-                      }`}>
-                        {item.price}
-                      </span>
-                    </div>
-                    
-                    <p className={`text-sm mb-2 ${
-                      isSaturated ? "text-crayola-gray" : "text-gray-500"
-                    }`}>
-                      {item.description}
-                    </p>
-                    
-                    <p className={`text-xs mb-4 ${
-                      isSaturated ? "text-crayola-gray" : "text-gray-500"
-                    }`}>
-                      Color: {item.color}
-                    </p>
-                    
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-1">
-                        {[...Array(5)].map((_, i) => (
-                          <Star 
-                            key={i} 
-                            size={16} 
-                            className={`${
-                              isSaturated ? "text-crayola-yellow" : "text-gray-500"
-                            } fill-current`} 
-                          />
-                        ))}
-                      </div>
-                      <span className={`text-xs ${
-                        isSaturated ? "text-crayola-gray" : "text-gray-500"
-                      }`}>
-                        + Shipping
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Store Integration Notice */}
-        <div
-          className={`text-center p-8 rounded-2xl ${
-            isSaturated 
-                              ? '' 
-              : 'bg-gray-800'
-          }`}
-        >
-          <ShoppingCart size={48} className="text-crayola-white mx-auto mb-4" />
-          <h3 className="text-2xl font-bold mb-4 text-crayola-white">
-            Ready to Order?
-          </h3>
-          <p className="text-crayola-white mb-6 max-w-2xl mx-auto">
-            We're setting up the full e-commerce experience with secure payment processing. 
-            Sign up below to be notified when the store launches!
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="px-6 py-3 rounded-full bg-crayola-white/20 text-crayola-white placeholder-crayola-gray border border-crayola-white/30 focus:border-crayola-yellow focus:outline-none flex-1 max-w-md"
-            />
-            <button
-              className="bg-crayola-white text-crayola-black px-8 py-3 rounded-full font-bold hover:bg-crayola-yellow transition-colors duration-300"
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredProducts.map((product) => (
+            <div
+              key={product.id}
+              className="bg-black/80 backdrop-blur-sm border border-yellow-400/20 rounded-lg overflow-hidden hover:border-yellow-400/50 transition-all duration-300 hover:scale-105"
             >
-              Notify Me
+              {/* Product Image */}
+              <div className="aspect-square bg-gradient-to-br from-yellow-400/10 to-transparent p-8 flex items-center justify-center">
+                <div className="text-6xl text-yellow-400/50">
+                  {product.category === 'clothing' && <Shirt />}
+                  {product.category === 'prints' && <Image />}
+                  {product.category === 'mystery' && <Gift />}
+                  {product.category === 'bundles' && <Music />}
+                </div>
+              </div>
+
+              {/* Product Info */}
+              <div className="p-6">
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="text-lg font-bold text-white leading-tight">
+                    {product.name}
+                  </h3>
+                  {(product as any).limited && (
+                    <span className="bg-yellow-400 text-black text-xs px-2 py-1 rounded font-bold">
+                      LIMITED
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-gray-300 text-sm mb-4 line-clamp-2">
+                  {product.description}
+                </p>
+
+                {/* Sizes/Options */}
+                {(product as any).sizes && (
+                  <div className="mb-4">
+                    <p className="text-xs text-gray-400 mb-2">Available sizes:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {(product as any).sizes.map((size: string, index: number) => (
+                        <span key={index} className="text-xs bg-gray-700 text-white px-2 py-1 rounded">
+                          {size}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Colors */}
+                {(product as any).colors && (
+                  <div className="mb-4">
+                    <p className="text-xs text-gray-400 mb-2">Colors:</p>
+                    <div className="flex flex-wrap gap-1">
+                      {(product as any).colors.map((color: string, index: number) => (
+                        <span key={index} className="text-xs bg-gray-700 text-white px-2 py-1 rounded">
+                          {color}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Price and Cart */}
+                <div className="flex items-center justify-between">
+                  <span className="text-2xl font-bold text-yellow-400">
+                    ${product.price}
+                  </span>
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="bg-yellow-400 text-black px-4 py-2 rounded font-bold hover:bg-yellow-300 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <ShoppingCart size={16} />
+                    <span>Add</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl text-yellow-400/50 mb-4">
+              <Package />
+            </div>
+            <h3 className="text-xl font-bold text-white mb-2">No products found</h3>
+            <p className="text-gray-400">Try selecting a different category</p>
+          </div>
+        )}
+
+        {/* Footer CTA */}
+        <div className="mt-16 text-center">
+          <div className="bg-black/80 backdrop-blur-sm border border-yellow-400/30 rounded-xl p-8">
+            <h3 className="text-2xl font-bold mb-4 text-white">
+              New drops coming soon
+            </h3>
+            <p className="text-gray-300 mb-6">
+              Be the first to know about new releases, exclusive designs, and limited drops.
+            </p>
+            <button className="bg-yellow-400 text-black px-8 py-3 rounded-lg font-bold hover:bg-yellow-300 transition-colors duration-200">
+              Join the waitlist
             </button>
           </div>
         </div>

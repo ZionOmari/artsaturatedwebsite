@@ -1,90 +1,26 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
-import Hero from '../components/Hero';
-import About from '../components/About';
-import Gallery from '../components/Gallery';
-import Connect from '../components/Connect';
 
-interface HomeProps {
-  isSaturated: boolean;
-  onSaturateToggle: () => void;
-  isScreenClear: boolean;
-}
-
-const Home: React.FC<HomeProps> = ({ isSaturated, onSaturateToggle, isScreenClear }) => {
-  const smoothScrollTo = (targetY: number, duration = 1000) => {
-    const startY = window.pageYOffset;
-    const difference = targetY - startY;
-    const startTime = performance.now();
-
-    const easeInOutCubic = (t: number): number => {
-      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;
-    };
-
-    const animateScroll = (currentTime: number) => {
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const easedProgress = easeInOutCubic(progress);
-      
-      window.scrollTo(0, startY + difference * easedProgress);
-      
-      if (progress < 1) {
-        requestAnimationFrame(animateScroll);
-      }
-    };
-
-    requestAnimationFrame(animateScroll);
-  };
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offsetTop = element.offsetTop - 80; // Account for fixed navigation
-      smoothScrollTo(offsetTop);
-    }
-  };
-
+const Home: React.FC = () => {
   return (
-    <>
-      <Navigation 
-        onSaturateToggle={onSaturateToggle} 
-        isSaturated={isSaturated} 
-        isScreenClear={isScreenClear}
-      />
-      <main>
-        <Hero isSaturated={isSaturated} />
-        <About isSaturated={isSaturated} />
-        <Gallery isSaturated={isSaturated} />
-        <Connect isSaturated={isSaturated} />
-      </main>
-
-      {/* Hidden Explore Button */}
-      <div style={{
-        position: 'fixed',
-        bottom: '2rem',
-        right: '2rem',
-        zIndex: 30
-      }}>
-        <button
-          onClick={() => scrollToSection('gallery')}
-          className={`
-            px-6 py-3 rounded-full font-bold text-lg
-            transition-all duration-500 ease-out
-            ${isSaturated 
-              ? 'bg-crayola-white/20 text-crayola-white border-2 border-crayola-white/30 hover:bg-crayola-white/30' 
-              : 'bg-gray-800/80 text-gray-200 border-2 border-gray-600/50 hover:bg-gray-700/80'
-            }
-            backdrop-blur-md shadow-lg hover:shadow-xl
-            transform hover:scale-105
-            opacity-0 hover:opacity-100
-            translate-y-4 hover:translate-y-0
-          `}
-        >
-          ✨ Explore
+    <div 
+      className="min-h-screen flex flex-col items-center justify-center"
+      style={{
+        background: 'linear-gradient(45deg, #ff6b35, #ff8c42, #ffa726, #ff9800)'
+      }}
+    >
+      <div className="text-center space-y-8 p-8 bg-white/20 backdrop-blur-sm rounded-2xl border border-white/30">
+        <h1 className="text-6xl font-bold text-white drop-shadow-lg">
+          Welcome to ArtSaturated
+        </h1>
+        <p className="text-xl text-white/90 max-w-2xl drop-shadow-md">
+          Discover the intersection of art, technology, and creative expression
+        </p>
+        <button className="px-8 py-4 bg-white/20 text-white font-bold text-lg rounded-lg hover:bg-white/30 transition-all duration-300 shadow-lg backdrop-blur-sm border border-white/30 hover:scale-105">
+          Get Started
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
-export default Home; 
+export default Home;
