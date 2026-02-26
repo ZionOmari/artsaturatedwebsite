@@ -1,3 +1,6 @@
+# Nested / duplicate repo (do not track)
+artsaturatedwebsite/
+
 # Dependencies
 node_modules/
 
